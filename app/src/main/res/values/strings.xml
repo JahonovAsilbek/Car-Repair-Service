@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Car Repair Service</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sort">Sort</string>
+    <string name="all">All</string>
+    <string name="open">Open</string>
+    <string name="closed">Closed</string>
+    <string name="info">It should be possible to close the task without leaving the screen (it would be a bonus if this can be done with a swipe to the left).
+When the task is closed, the application should display the price for all work on this machine.
+When closing a task, the application must be able to calculate the price on its own, without requests to the server.
+Pair of work and cost should be stored in the phone.</string>
+</resources>
