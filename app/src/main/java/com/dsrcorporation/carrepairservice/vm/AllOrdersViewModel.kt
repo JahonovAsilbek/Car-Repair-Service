@@ -26,4 +26,22 @@ class AllOrdersViewModel @Inject constructor(
         }
         return ordersRes
     }
+
+    fun changeOrderStatus(isClosed: Boolean, id: Int) {
+        viewModelScope.launch {
+            vehicleInteractor.changeOrderStatus(isClosed, id)
+        }
+    }
+
+    private val orderByStatus = MutableStateFlow<Resource>(Resource.Loading)
+    fun getOrderByStatus(isClosed: Boolean):StateFlow<Resource> {
+        viewModelScope.launch {
+            vehicleInteractor.getOrderByStatus(isClosed = isClosed).catch {
+                orderByStatus.emit(Resource.Error("Error"))
+            }.collect {
+                orderByStatus.emit(Resource.Success(it))
+            }
+        }
+        return orderByStatus
+    }
 }

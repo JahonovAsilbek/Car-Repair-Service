@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.dsrcorporation.carrepairservice.App
 import com.dsrcorporation.carrepairservice.R
-import com.dsrcorporation.carrepairservice.databinding.FragmentAllOrdersBinding
+import com.dsrcorporation.carrepairservice.databinding.FragmentOrdersBinding
 import com.dsrcorporation.carrepairservice.utils.network.Resource
 import com.dsrcorporation.carrepairservice.utils.vm.BindingFragment
 import com.dsrcorporation.carrepairservice.vm.AllOrdersViewModel
@@ -23,7 +23,16 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class AllOrdersFragment : BindingFragment<FragmentAllOrdersBinding>() {
+class OrdersFragment : BindingFragment<FragmentOrdersBinding>() {
+
+    private var position: Int? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            position = it.getInt("position")
+        }
+    }
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
@@ -40,18 +49,51 @@ class AllOrdersFragment : BindingFragment<FragmentAllOrdersBinding>() {
     }
 
     private fun loadData() {
-        lifecycleScope.launch {
-            viewModel.getAllorders().collect {
-                when (it) {
-                    is Resource.Loading -> {}
-                    is Resource.Error<*> -> {}
-                    is Resource.Success<*> -> {
-                        val list = it.data as List<Order>
-                        adapter.addData(list)
+        when (position) {
+            0 -> {
+                lifecycleScope.launch {
+                    viewModel.getAllorders().collect {
+                        when (it) {
+                            is Resource.Loading -> {}
+                            is Resource.Error<*> -> {}
+                            is Resource.Success<*> -> {
+                                val list = it.data as List<Order>
+                                adapter.addData(list)
+                            }
+                        }
+                    }
+                }
+            }
+            1 -> {
+                lifecycleScope.launch {
+                    viewModel.getOrderByStatus(isClosed = true).collect {
+                        when (it) {
+                            is Resource.Loading -> {}
+                            is Resource.Error<*> -> {}
+                            is Resource.Success<*> -> {
+                                val list = it.data as List<Order>
+                                adapter.addData(list)
+                            }
+                        }
+                    }
+                }
+            }
+            2 -> {
+                lifecycleScope.launch {
+                    viewModel.getOrderByStatus(isClosed = false).collect {
+                        when (it) {
+                            is Resource.Loading -> {}
+                            is Resource.Error<*> -> {}
+                            is Resource.Success<*> -> {
+                                val list = it.data as List<Order>
+                                adapter.addData(list)
+                            }
+                        }
                     }
                 }
             }
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -93,13 +135,28 @@ class AllOrdersFragment : BindingFragment<FragmentAllOrdersBinding>() {
                 val itemOrderBinding = (viewHolder as AllOrdersAdapter.VH).itemOrderBinding
                 adapter.onItemSwipe(viewHolder.adapterPosition, itemOrderBinding, adapter.data[viewHolder.adapterPosition].isClosed)
                 Log.d("AAAA", "onSwiped: ${adapter.data[viewHolder.adapterPosition].isClosed}")
+                val status = adapter.data[viewHolder.adapterPosition].isClosed
+                val id = adapter.data[viewHolder.adapterPosition].id
+                viewModel.changeOrderStatus(!status, id!!)
             }
         }
 
         val itemTouchHelper = ItemTouchHelper(itemTouch)
         itemTouchHelper.attachToRecyclerView(binding.rv)
+
+    }
+
+
+    companion object {
+        @JvmStatic
+        fun newInstance(postion: Int) =
+            OrdersFragment().apply {
+                arguments = Bundle().apply {
+                    putInt("position", postion)
+                }
+            }
     }
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
-        get() = FragmentAllOrdersBinding::inflate
+        get() = FragmentOrdersBinding::inflate
 }

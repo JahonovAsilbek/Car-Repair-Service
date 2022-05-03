@@ -58,8 +58,6 @@ class AllOrdersAdapter : RecyclerView.Adapter<AllOrdersAdapter.VH>(), ItemTouchH
     }
 
     override fun onItemSwipe(position: Int, itemOrderBinding: ItemOrderBinding, isOpened: Boolean) {
-        if (!isOpened) itemOrderBinding.root.setBackgroundResource(R.color.green)
-        else itemOrderBinding.root.setBackgroundResource(R.color.red)
         notifyItemChanged(position)
     }
 

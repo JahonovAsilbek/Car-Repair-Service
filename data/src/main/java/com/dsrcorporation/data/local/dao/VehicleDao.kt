@@ -33,6 +33,9 @@ interface VehicleDao {
     @Query("select * from repair_order")
     fun getAllOrders(): Flow<List<Order>>
 
+    @Query("select * from repair_order where isClosed=:isClosed")
+    fun getOrderByStatus(isClosed: Boolean): Flow<List<Order>>
+
     @Query("select * from repair_order where id=:id")
     fun getOrderByID(id: Int): Flow<Order>
 

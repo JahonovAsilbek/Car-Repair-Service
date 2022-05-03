@@ -3,6 +3,7 @@ package com.dsrcorporation.carrepairservice.ui.add
 import android.app.AlertDialog
 import android.os.Bundle
 import android.text.InputType
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -248,6 +249,8 @@ class AddOrderFragment : BindingFragment<FragmentAddOrderBinding>() {
         taskName.layoutParams = layoutParams
         taskName.setPadding(16.dpToPx(resources.displayMetrics), 0, 16.dpToPx(resources.displayMetrics), 0)
         taskName.setBackgroundResource(R.drawable.edittext_back)
+        taskName.maxLines = 1
+        taskName.ellipsize = TextUtils.TruncateAt.END
 
 
         val cost = EditText(ContextThemeWrapper(requireContext(), R.style.edittext_style))
@@ -256,6 +259,7 @@ class AddOrderFragment : BindingFragment<FragmentAddOrderBinding>() {
         cost.layoutParams = layoutParams
         cost.setPadding(16.dpToPx(resources.displayMetrics), 0, 16.dpToPx(resources.displayMetrics), 0)
         cost.setBackgroundResource(R.drawable.edittext_back)
+        cost.ellipsize = TextUtils.TruncateAt.END
 
         task1.addView(taskName)
         task1.addView(cost)

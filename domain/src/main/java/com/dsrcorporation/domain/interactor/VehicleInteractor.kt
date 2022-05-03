@@ -37,6 +37,14 @@ class VehicleInteractor @Inject constructor(
         return vehicleRepository.getModelsByMakeID(makeID)
     }
 
+    suspend fun changeOrderStatus(isClosed: Boolean, id: Int) {
+        return vehicleRepository.changeOrderStatus(isClosed = isClosed, id = id)
+    }
+
+    fun getOrderByStatus(isClosed: Boolean): Flow<List<Order>> {
+        return vehicleRepository.getOrderByStatus(isClosed = isClosed)
+    }
+
     override val coroutineContext: CoroutineContext
         get() = Job()
 

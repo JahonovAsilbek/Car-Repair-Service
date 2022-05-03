@@ -80,4 +80,8 @@ class VehicleRepositoryImp @Inject constructor(
     override fun getAllOrders(): Flow<List<Order>> {
         return vehicleDao.getAllOrders()
     }
+
+    override fun getOrderByStatus(isClosed: Boolean): Flow<List<Order>> {
+        return vehicleDao.getOrderByStatus(isClosed = isClosed)
+    }
 }

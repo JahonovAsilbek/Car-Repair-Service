@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_main" />
     <fragment
         android:id="@+id/allOrdersFragment"
-        android:name="com.dsrcorporation.carrepairservice.ui.all.AllOrdersFragment"
+        android:name="com.dsrcorporation.carrepairservice.ui.all.OrdersFragment"
         android:label="fragment_all_orders"
-        tools:layout="@layout/fragment_all_orders" />
+        tools:layout="@layout/fragment_orders" />
     <fragment
         android:id="@+id/addOrderFragment"
         android:name="com.dsrcorporation.carrepairservice.ui.add.AddOrderFragment"

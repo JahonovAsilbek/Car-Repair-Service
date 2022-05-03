@@ -13,7 +13,8 @@ interface VehicleRepository {
     suspend fun insertOrder(order: Order)
     suspend fun insertMake(makes: List<Make>)
     suspend fun insertModels(models: List<Model>)
-    suspend fun changeOrderStatus(isOpened: Boolean, id: Int)
+    suspend fun changeOrderStatus(isClosed: Boolean, id: Int)
     fun getOrderByID(id: Int): Flow<Order>
     fun getAllOrders(): Flow<List<Order>>
+    fun getOrderByStatus(isClosed: Boolean): Flow<List<Order>>
 }
