@@ -1,4 +1,4 @@
-package com.dsrcorporation.carrepairservice.utils.network
+package com.dsrcorporation.domain.network
 
 import android.content.Context
 import android.net.ConnectivityManager

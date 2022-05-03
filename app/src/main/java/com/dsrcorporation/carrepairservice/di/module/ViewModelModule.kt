@@ -2,6 +2,7 @@ package com.dsrcorporation.carrepairservice.di.module
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.dsrcorporation.carrepairservice.vm.AddOrderViewModel
 import com.dsrcorporation.carrepairservice.vm.AllOrdersViewModel
 import com.dsrcorporation.carrepairservice.vm.ViewModelFactory
 import com.dsrcorporation.carrepairservice.vm.ViewModelKey
@@ -18,4 +19,8 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(AllOrdersViewModel::class)
     fun bindAllOrdersViewModel(allOrdersViewModel: AllOrdersViewModel): ViewModel
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddOrderViewModel::class)
+    fun bindAddOrderViewModel(addOrderViewModel: AddOrderViewModel): ViewModel
 }

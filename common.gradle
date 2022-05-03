@@ -26,8 +26,6 @@ dependencies {
     def room_version = "2.4.2"
     implementation "androidx.room:room-ktx:$room_version"
     implementation "androidx.room:room-runtime:$room_version"
-    implementation "androidx.room:room-paging:2.5.0-alpha01"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
 
     debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"

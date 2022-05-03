@@ -7,9 +7,9 @@ import com.dsrcorporation.data.local.converters.OrderConverter
 import com.dsrcorporation.data.local.dao.VehicleDao
 import com.dsrcorporation.domain.models.make.Make
 import com.dsrcorporation.domain.models.models.Model
-import com.dsrcorporation.domain.models.vehicle.Vehicle
+import com.dsrcorporation.domain.models.order.Order
 
-@Database(entities = [Make::class, Model::class, Vehicle::class], version = 1)
+@Database(entities = [Make::class, Model::class, Order::class], version = 1, exportSchema = false)
 @TypeConverters(OrderConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun vehicleDao(): VehicleDao

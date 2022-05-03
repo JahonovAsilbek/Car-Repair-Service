@@ -4,7 +4,7 @@ import android.app.Application
 import com.dsrcorporation.carrepairservice.di.AppComponent
 import com.dsrcorporation.carrepairservice.di.DaggerAppComponent
 import com.dsrcorporation.carrepairservice.di.module.ApplicationModule
-import com.dsrcorporation.carrepairservice.utils.network.NetworkHelper
+import com.dsrcorporation.domain.network.NetworkHelper
 import javax.inject.Inject
 
 class App @Inject constructor() : Application() {

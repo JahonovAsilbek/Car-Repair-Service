@@ -3,6 +3,7 @@ package com.dsrcorporation.carrepairservice.ui.main
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.dsrcorporation.carrepairservice.R
 import com.dsrcorporation.carrepairservice.databinding.FragmentMainBinding
@@ -14,6 +15,13 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupVM()
+        setupUI()
+    }
+
+    private fun setupUI() {
+        binding.addOrderBtn.setOnClickListener {
+            findNavController().navigate(R.id.addOrderFragment)
+        }
     }
 
     private fun setupVM() {

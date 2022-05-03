@@ -2,7 +2,6 @@ package com.dsrcorporation.carrepairservice.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dsrcorporation.carrepairservice.utils.network.NetworkHelper
 import com.dsrcorporation.carrepairservice.utils.network.Resource
 import com.dsrcorporation.domain.interactor.VehicleInteractor
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,32 +12,18 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AllOrdersViewModel @Inject constructor(
-    private val vehicleInteractor: VehicleInteractor,
-    private val networkHelper: NetworkHelper
+    private val vehicleInteractor: VehicleInteractor
 ) : ViewModel() {
 
-    private val vehicle = MutableStateFlow<Resource>(Resource.Loading)
-
-    fun getVehicle(vin: String): StateFlow<Resource> {
+    private val ordersRes = MutableStateFlow<Resource>(Resource.Loading)
+    fun getAllorders(): StateFlow<Resource> {
         viewModelScope.launch {
-            if (networkHelper.isNetworkConnected()) {
-                vehicleInteractor.getVehicle(vin).catch {
-                    vehicle.emit(Resource.Error(it.message))
-                }.collect {
-                    if (it.isSuccess) {
-                        val vehicleRes = it.getOrNull()
-                        if (vehicleRes != null && vehicleRes.Result.isNotEmpty()) {
-                            vehicle.emit(Resource.Success(it.getOrNull()!!.Result[0]))
-                        }
-                    } else {
-                        vehicle.emit(Resource.Error(it.exceptionOrNull()))
-                    }
-                }
-            } else {
-                // get from database
+            vehicleInteractor.getAllOrders().catch {
+                ordersRes.emit(Resource.Error("Error"))
+            }.collect {
+                ordersRes.emit(Resource.Success(it))
             }
         }
-        return vehicle
+        return ordersRes
     }
-
 }
