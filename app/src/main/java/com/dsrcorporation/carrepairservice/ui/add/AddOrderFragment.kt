@@ -26,7 +26,6 @@ import com.dsrcorporation.carrepairservice.databinding.FragmentAddOrderBinding
 import com.dsrcorporation.carrepairservice.utils.*
 import com.dsrcorporation.carrepairservice.utils.network.Resource
 import com.dsrcorporation.carrepairservice.utils.vm.BindingFragment
-import com.dsrcorporation.carrepairservice.vm.AddOrderViewModel
 import com.dsrcorporation.domain.models.make.Make
 import com.dsrcorporation.domain.models.models.Model
 import com.dsrcorporation.domain.models.order.Order
@@ -41,13 +40,12 @@ class AddOrderFragment : BindingFragment<FragmentAddOrderBinding>() {
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private val viewModel: AddOrderViewModel by viewModels { factory }
-    private var makeID: Int = 440
+    private var makeID: Int = -1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupVM()
         setupUI()
-
 
     }
 
@@ -74,13 +72,9 @@ class AddOrderFragment : BindingFragment<FragmentAddOrderBinding>() {
                         is Resource.Error<*> -> {
                             requireContext().showToast(getString(R.string.vehicle_not_found))
                             binding.vin.setText("")
-                            binding.check.isEnabled = true
                         }
-                        Resource.Loading -> {
-                            binding.check.isEnabled = false
-                        }
+                        Resource.Loading -> {}
                         is Resource.Success<*> -> {
-                            binding.check.isEnabled = true
                             val vehicle = it.data as Vehicle
                             binding.make.text = vehicle.Make
                             binding.model.text = vehicle.Model
@@ -96,6 +90,10 @@ class AddOrderFragment : BindingFragment<FragmentAddOrderBinding>() {
 
         binding.model.setOnClickListener {
             showModelDialog()
+        }
+
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
 
     }
@@ -181,6 +179,7 @@ class AddOrderFragment : BindingFragment<FragmentAddOrderBinding>() {
             override fun onClick(make: Make) {
                 binding.make.text = make.Make_Name
                 makeID = make.Make_ID
+                binding.model.text = ""
                 alert.cancel()
             }
         }
@@ -227,7 +226,7 @@ class AddOrderFragment : BindingFragment<FragmentAddOrderBinding>() {
         val serialNumber = binding.serialNumber.text()
 
         if (vin.isNotEmpty() && brand.isNotEmpty() && model.isNotEmpty() && serialNumber.isNotEmpty()) {
-            val order = Order(model = model, make = brand, serialNumber = serialNumber, tasks = tasks, isClosed = false, date = System.currentTimeMillis())
+            val order = Order(model = model, make = brand, serialNumber = serialNumber, tasks = tasks, isClosed = false, date = System.currentTimeMillis(), vin = vin)
             viewModel.addOrder(order)
             findNavController().popBackStack()
         } else requireContext().showToast(getString(R.string.fill_all_fields))

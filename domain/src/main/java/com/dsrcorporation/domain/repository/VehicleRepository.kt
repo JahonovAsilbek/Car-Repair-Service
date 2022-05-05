@@ -16,5 +16,14 @@ interface VehicleRepository {
     suspend fun changeOrderStatus(isClosed: Boolean, id: Int)
     fun getOrderByID(id: Int): Flow<Order>
     fun getAllOrders(): Flow<List<Order>>
+    fun getAllOrders(isClosed: Boolean): Flow<List<Order>>
     fun getOrderByStatus(isClosed: Boolean): Flow<List<Order>>
+    fun getOrderByModel(isClosed: Boolean): Flow<List<Order>>
+    fun getOrderByModelDesc(isClosed: Boolean): Flow<List<Order>>
+    fun getOrderByDate(isClosed: Boolean): Flow<List<Order>>
+    fun getOrderByDateDesc(isClosed: Boolean): Flow<List<Order>>
+    fun getOrderByModel(): Flow<List<Order>>
+    fun getOrderByModelDesc(): Flow<List<Order>>
+    fun getOrderByDate(): Flow<List<Order>>
+    fun getOrderByDateDesc(): Flow<List<Order>>
 }

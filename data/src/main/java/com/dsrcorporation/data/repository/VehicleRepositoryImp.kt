@@ -81,7 +81,43 @@ class VehicleRepositoryImp @Inject constructor(
         return vehicleDao.getAllOrders()
     }
 
+    override fun getAllOrders(isClosed: Boolean): Flow<List<Order>> {
+        return vehicleDao.getAllOrders(isClosed)
+    }
+
     override fun getOrderByStatus(isClosed: Boolean): Flow<List<Order>> {
         return vehicleDao.getOrderByStatus(isClosed = isClosed)
+    }
+
+    override fun getOrderByModel(isClosed: Boolean): Flow<List<Order>> {
+        return vehicleDao.getOrderByModel(isClosed = isClosed)
+    }
+
+    override fun getOrderByModelDesc(isClosed: Boolean): Flow<List<Order>> {
+        return vehicleDao.getOrderByModelDesc(isClosed = isClosed)
+    }
+
+    override fun getOrderByDate(isClosed: Boolean): Flow<List<Order>> {
+        return vehicleDao.getOrderByDate(isClosed = isClosed)
+    }
+
+    override fun getOrderByDateDesc(isClosed: Boolean): Flow<List<Order>> {
+        return vehicleDao.getOrderByDateDesc(isClosed = isClosed)
+    }
+
+    override fun getOrderByModel(): Flow<List<Order>> {
+        return vehicleDao.getOrderByModel()
+    }
+
+    override fun getOrderByModelDesc(): Flow<List<Order>> {
+        return vehicleDao.getOrderByModelDesc()
+    }
+
+    override fun getOrderByDate(): Flow<List<Order>> {
+        return vehicleDao.getOrderByDate()
+    }
+
+    override fun getOrderByDateDesc(): Flow<List<Order>> {
+        return vehicleDao.getOrderByDateDesc()
     }
 }

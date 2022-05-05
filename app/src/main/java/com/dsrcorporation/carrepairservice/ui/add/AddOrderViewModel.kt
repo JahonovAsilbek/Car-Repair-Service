@@ -1,4 +1,4 @@
-package com.dsrcorporation.carrepairservice.vm
+package com.dsrcorporation.carrepairservice.ui.add
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -6,10 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.dsrcorporation.carrepairservice.utils.network.Resource
 import com.dsrcorporation.domain.interactor.VehicleInteractor
 import com.dsrcorporation.domain.models.order.Order
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,8 +20,8 @@ class AddOrderViewModel @Inject constructor(
         }
     }
 
-    private val vinRes = MutableStateFlow<Resource>(Resource.Loading)
-    fun getVehicle(vin: String): StateFlow<Resource> {
+    private val vinRes = MutableSharedFlow<Resource>()
+    fun getVehicle(vin: String): SharedFlow<Resource> {
         viewModelScope.launch {
             vinRes.emit(Resource.Loading)
             vehicleInteractor.getVehicle(vin).catch {
@@ -33,7 +30,10 @@ class AddOrderViewModel @Inject constructor(
             }.collect {
                 val vehicle = it.getOrNull()
                 if (vehicle != null) {
-                    vinRes.emit(Resource.Success(vehicle))
+                    if (vehicle.Make.isNotEmpty() && vehicle.Model.isNotEmpty())
+                        vinRes.emit(Resource.Success(vehicle))
+                    else
+                        vinRes.emit(Resource.Error(it.exceptionOrNull()))
                 } else {
                     vinRes.emit(Resource.Error(it.exceptionOrNull()))
                 }

@@ -22,6 +22,7 @@
                 android:layout_height="?actionBarSize"
                 android:background="@color/main_color"
                 app:layout_constraintTop_toTopOf="parent"
+                app:navigationIcon="@drawable/ic_left"
                 app:title="@string/add_order"
                 app:titleTextColor="@color/white" />
 
@@ -61,7 +62,8 @@
                 android:background="@drawable/edittext_back"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="@dimen/dimen_16"
-                android:text="@string/hint_make"
+                android:hint="@string/make"
+                android:textColor="@color/main_color"
                 android:textSize="17sp"
                 app:layout_constraintTop_toBottomOf="@id/vin_layout" />
 
@@ -74,7 +76,8 @@
                 android:background="@drawable/edittext_back"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="@dimen/dimen_16"
-                android:text="@string/hint_model"
+                android:hint="@string/model"
+                android:textColor="@color/main_color"
                 android:textSize="17sp"
                 app:layout_constraintTop_toBottomOf="@id/make" />
 

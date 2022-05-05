@@ -23,4 +23,17 @@ Pair of work and cost should be stored in the phone.</string>
     <string name="vehicle_not_found">Vehicle not found!</string>
     <string name="choose">Choose one of them</string>
     <string name="choose_make">Choose brand first</string>
+    <string name="info_title">Info</string>
+    <string name="task">Task:</string>
+    <string name="language">Language</string>
+    <string name="name_a_z">Name(A-Z)</string>
+    <string name="name_z_a">Name(Z-A)</string>
+    <string name="date">Date</string>
+    <string name="date_desc">Date descending</string>
+    <string name="model">Model:</string>
+    <string name="make">Brand:</string>
+    <string name="serial_number">Serial number:</string>
+    <string name="vin">VIN:</string>
+    <string name="english">English</string>
+    <string name="russian">Русский</string>
 </resources>

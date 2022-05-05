@@ -3,11 +3,11 @@ package com.dsrcorporation.carrepairservice.ui.all
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -16,8 +16,8 @@ import com.dsrcorporation.carrepairservice.App
 import com.dsrcorporation.carrepairservice.R
 import com.dsrcorporation.carrepairservice.databinding.FragmentOrdersBinding
 import com.dsrcorporation.carrepairservice.utils.network.Resource
+import com.dsrcorporation.carrepairservice.utils.showToast
 import com.dsrcorporation.carrepairservice.utils.vm.BindingFragment
-import com.dsrcorporation.carrepairservice.vm.AllOrdersViewModel
 import com.dsrcorporation.domain.models.order.Order
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -26,97 +26,113 @@ import javax.inject.Inject
 class OrdersFragment : BindingFragment<FragmentOrdersBinding>() {
 
     private var position: Int? = null
+    private var isClosed: Boolean? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             position = it.getInt("position")
+            when (position) {
+                0 -> {
+                    isClosed = null
+                }
+                1 -> {
+                    isClosed = true
+                }
+                2 -> {
+                    isClosed = false
+                }
+            }
         }
+        setHasOptionsMenu(true)
     }
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private val viewModel: AllOrdersViewModel by viewModels { factory }
-    private lateinit var adapter: AllOrdersAdapter
+    private lateinit var adapter: OrdersAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         App.appComponent.inject(this)
-        setHasOptionsMenu(true)
         setupUI()
         loadData()
 
     }
 
     private fun loadData() {
-        when (position) {
-            0 -> {
-                lifecycleScope.launch {
-                    viewModel.getAllorders().collect {
-                        when (it) {
-                            is Resource.Loading -> {}
-                            is Resource.Error<*> -> {}
-                            is Resource.Success<*> -> {
-                                val list = it.data as List<Order>
-                                adapter.addData(list)
-                            }
-                        }
-                    }
-                }
-            }
-            1 -> {
-                lifecycleScope.launch {
-                    viewModel.getOrderByStatus(isClosed = true).collect {
-                        when (it) {
-                            is Resource.Loading -> {}
-                            is Resource.Error<*> -> {}
-                            is Resource.Success<*> -> {
-                                val list = it.data as List<Order>
-                                adapter.addData(list)
-                            }
-                        }
-                    }
-                }
-            }
-            2 -> {
-                lifecycleScope.launch {
-                    viewModel.getOrderByStatus(isClosed = false).collect {
-                        when (it) {
-                            is Resource.Loading -> {}
-                            is Resource.Error<*> -> {}
-                            is Resource.Success<*> -> {
-                                val list = it.data as List<Order>
-                                adapter.addData(list)
-                            }
-                        }
+        lifecycleScope.launch {
+            viewModel.getAllorders(isClosed = isClosed).collect {
+                when (it) {
+                    is Resource.Loading -> {}
+                    is Resource.Error<*> -> {}
+                    is Resource.Success<*> -> {
+                        val list = it.data as List<Order>
+                        adapter.addData(list)
                     }
                 }
             }
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.sort) {
-            Toast.makeText(requireContext(), "Menu", Toast.LENGTH_SHORT).show()
+        var name = false
+        var nameDesc = false
+        var date = false
+        var dateDesc = false
+        when (item.itemId) {
+            R.id.language -> {
+
+            }
+            R.id.name -> {
+                name = true
+            }
+            R.id.name_desc -> {
+                nameDesc = true
+            }
+            R.id.date -> {
+                date = true
+            }
+            R.id.date_desc -> {
+                dateDesc = true
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.getSortedOrder(
+                isClosed, name = name, nameDesc = nameDesc, date = date, dateDesc = dateDesc
+            ).collect {
+                when (it) {
+                    is Resource.Error<*> -> {
+                        requireContext().showToast(it.message.toString())
+                    }
+                    Resource.Loading -> {}
+                    is Resource.Success<*> -> {
+                        val list = it.data as List<Order>
+                        adapter.addData(list)
+                    }
+                }
+            }
         }
         return true
     }
 
     private fun setupUI() {
-        adapter = AllOrdersAdapter()
+        adapter = OrdersAdapter()
         binding.rv.adapter = adapter
         val itemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         itemDecoration.setDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.divider)!!)
         binding.rv.addItemDecoration(itemDecoration)
 
-        adapter.onOrderClick = object : AllOrdersAdapter.OnOrderClick {
+        adapter.onOrderClick = object : OrdersAdapter.OnOrderClick {
             override fun onClick(order: Order, position: Int) {
-                // open order info fragment
+                val bundle = Bundle()
+                bundle.putSerializable("order", order)
+                findNavController().navigate(R.id.orderInfoFragment, bundle)
             }
         }
 
@@ -132,7 +148,7 @@ class OrdersFragment : BindingFragment<FragmentOrdersBinding>() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val itemOrderBinding = (viewHolder as AllOrdersAdapter.VH).itemOrderBinding
+                val itemOrderBinding = (viewHolder as OrdersAdapter.VH).itemOrderBinding
                 adapter.onItemSwipe(viewHolder.adapterPosition, itemOrderBinding, adapter.data[viewHolder.adapterPosition].isClosed)
                 Log.d("AAAA", "onSwiped: ${adapter.data[viewHolder.adapterPosition].isClosed}")
                 val status = adapter.data[viewHolder.adapterPosition].isClosed

@@ -10,7 +10,7 @@ import com.dsrcorporation.domain.models.order.Order
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AllOrdersAdapter : RecyclerView.Adapter<AllOrdersAdapter.VH>(), ItemTouchHelperAdapter {
+class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.VH>(), ItemTouchHelperAdapter {
 
     var onOrderClick: OnOrderClick? = null
     var data = ArrayList<Order>()
@@ -20,7 +20,7 @@ class AllOrdersAdapter : RecyclerView.Adapter<AllOrdersAdapter.VH>(), ItemTouchH
             itemOrderBinding.model.text = order.model
             var info = ""
             for (task in order.tasks) {
-                info += task.task + "\n"
+                info += task.task + ". \t"
             }
             itemOrderBinding.info.text = info
             itemOrderBinding.date.text = SimpleDateFormat("dd.MM.yyyy").format(Date(order.date))

@@ -7,6 +7,7 @@ import com.dsrcorporation.carrepairservice.di.module.RoomDatabaseModule
 import com.dsrcorporation.carrepairservice.di.module.ViewModelModule
 import com.dsrcorporation.carrepairservice.ui.add.AddOrderFragment
 import com.dsrcorporation.carrepairservice.ui.all.OrdersFragment
+import com.dsrcorporation.carrepairservice.ui.single.OrderInfoFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -23,4 +24,5 @@ interface AppComponent {
     fun inject(app: App)
     fun inject(allOrdersFragment: OrdersFragment)
     fun inject(addOrderFragment: AddOrderFragment)
+    fun inject(orderInfoFragment: OrderInfoFragment)
 }

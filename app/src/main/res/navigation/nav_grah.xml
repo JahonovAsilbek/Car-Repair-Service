@@ -20,4 +20,9 @@
         android:name="com.dsrcorporation.carrepairservice.ui.add.AddOrderFragment"
         android:label="fragment_add_order"
         tools:layout="@layout/fragment_add_order" />
+    <fragment
+        android:id="@+id/orderInfoFragment"
+        android:name="com.dsrcorporation.carrepairservice.ui.single.OrderInfoFragment"
+        android:label="fragment_order_info"
+        tools:layout="@layout/fragment_order_info" />
 </navigation>

@@ -34,6 +34,9 @@ interface VehicleDao {
     fun getAllOrders(): Flow<List<Order>>
 
     @Query("select * from repair_order where isClosed=:isClosed")
+    fun getAllOrders(isClosed: Boolean): Flow<List<Order>>
+
+    @Query("select * from repair_order where isClosed=:isClosed")
     fun getOrderByStatus(isClosed: Boolean): Flow<List<Order>>
 
     @Query("select * from repair_order where id=:id")
@@ -41,4 +44,30 @@ interface VehicleDao {
 
     @Query("update repair_order set isClosed=:isClosed where id=:id")
     suspend fun changeOrderStatus(isClosed: Boolean, id: Int)
+
+    @Query("select * from repair_order where isClosed=:isClosed order by model")
+    fun getOrderByModel(isClosed: Boolean): Flow<List<Order>>
+
+    @Query("select * from repair_order where isClosed=:isClosed order by model desc")
+    fun getOrderByModelDesc(isClosed: Boolean): Flow<List<Order>>
+
+    @Query("select * from repair_order where isClosed=:isClosed order by date")
+    fun getOrderByDate(isClosed: Boolean): Flow<List<Order>>
+
+    @Query("select * from repair_order where isClosed=:isClosed order by date desc")
+    fun getOrderByDateDesc(isClosed: Boolean): Flow<List<Order>>
+
+    @Query("select * from repair_order order by model")
+    fun getOrderByModel(): Flow<List<Order>>
+
+    @Query("select * from repair_order order by model desc")
+    fun getOrderByModelDesc(): Flow<List<Order>>
+
+    @Query("select * from repair_order order by date")
+    fun getOrderByDate(): Flow<List<Order>>
+
+    @Query("select * from repair_order order by date desc")
+    fun getOrderByDateDesc(): Flow<List<Order>>
+
+
 }

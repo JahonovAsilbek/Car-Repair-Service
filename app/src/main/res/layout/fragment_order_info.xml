@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.single.OrderInfoFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/main_color"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_left"
+            app:title="@string/info_title"
+            app:titleTextColor="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <TextView
+                android:id="@+id/model"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_8"
+                android:fontFamily="sans-serif-medium"
+                android:lineHeight="24sp"
+                android:text="Model: Tesla Model Y"
+                android:textColor="@color/main_color"
+                android:textSize="18sp"
+                tools:targetApi="p" />
+
+            <TextView
+                android:id="@+id/make"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_8"
+                android:fontFamily="sans-serif-medium"
+                android:lineHeight="24sp"
+                android:text="Brand: Tesla"
+                android:textColor="@color/main_color"
+                android:textSize="18sp"
+                tools:targetApi="p" />
+
+            <TextView
+                android:id="@+id/serial_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_8"
+                android:fontFamily="sans-serif-medium"
+                android:lineHeight="24sp"
+                android:text="Serial number: SJ7ASJSD787SADF7"
+                android:textColor="@color/main_color"
+                android:textSize="18sp"
+                tools:targetApi="p" />
+
+            <TextView
+                android:id="@+id/vin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_8"
+                android:fontFamily="sans-serif-medium"
+                android:lineHeight="24sp"
+                android:text="VIN: 5SHD678SA"
+                android:textColor="@color/main_color"
+                android:textSize="18sp"
+                tools:targetApi="p" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_8"
+                android:fontFamily="sans-serif-medium"
+                android:lineHeight="24sp"
+                android:text="Date: 04.05.2022"
+                android:textColor="@color/main_color"
+                android:textSize="18sp"
+                tools:targetApi="p" />
+
+            <TextView
+                android:id="@+id/tasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_8"
+                android:fontFamily="sans-serif-medium"
+                android:lineHeight="32sp"
+                android:text="Task: $300 - Change oil"
+                android:textColor="@color/main_color"
+                android:textSize="18sp"
+                tools:targetApi="p" />
+
+            <RadioGroup
+                android:id="@+id/radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/open"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:lineHeight="24sp"
+                    android:paddingHorizontal="@dimen/dimen_8"
+                    android:text="@string/open"
+                    android:textColor="@color/main_color"
+                    android:textSize="18sp"
+                    tools:targetApi="p" />
+
+                <RadioButton
+                    android:id="@+id/close"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:lineHeight="24sp"
+                    android:paddingHorizontal="@dimen/dimen_8"
+                    android:text="@string/closed"
+                    android:textColor="@color/main_color"
+                    android:textSize="18sp"
+                    tools:targetApi="p" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

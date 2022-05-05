@@ -1,4 +1,4 @@
-package com.dsrcorporation.carrepairservice.vm
+package com.dsrcorporation.carrepairservice.ui.all
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,9 +16,9 @@ class AllOrdersViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val ordersRes = MutableStateFlow<Resource>(Resource.Loading)
-    fun getAllorders(): StateFlow<Resource> {
+    fun getAllorders(isClosed: Boolean?): StateFlow<Resource> {
         viewModelScope.launch {
-            vehicleInteractor.getAllOrders().catch {
+            vehicleInteractor.getAllOrders(isClosed).catch {
                 ordersRes.emit(Resource.Error("Error"))
             }.collect {
                 ordersRes.emit(Resource.Success(it))
@@ -34,7 +34,7 @@ class AllOrdersViewModel @Inject constructor(
     }
 
     private val orderByStatus = MutableStateFlow<Resource>(Resource.Loading)
-    fun getOrderByStatus(isClosed: Boolean):StateFlow<Resource> {
+    fun getOrderByStatus(isClosed: Boolean): StateFlow<Resource> {
         viewModelScope.launch {
             vehicleInteractor.getOrderByStatus(isClosed = isClosed).catch {
                 orderByStatus.emit(Resource.Error("Error"))
@@ -43,5 +43,17 @@ class AllOrdersViewModel @Inject constructor(
             }
         }
         return orderByStatus
+    }
+
+    private val sortedOrder = MutableStateFlow<Resource>(Resource.Loading)
+    fun getSortedOrder(isClosed: Boolean?, name: Boolean, nameDesc: Boolean, date: Boolean, dateDesc: Boolean): StateFlow<Resource> {
+        viewModelScope.launch {
+            vehicleInteractor.getSortedOrder(isClosed, name, nameDesc, date, dateDesc).catch {
+                sortedOrder.emit(Resource.Error("Error"))
+            }.collect {
+                sortedOrder.emit(Resource.Success(it))
+            }
+        }
+        return sortedOrder
     }
 }
