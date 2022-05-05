@@ -41,13 +41,26 @@
 
         <TextView
             android:id="@+id/info"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="@dimen/dimen_8"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="#80FFFFFF"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/cost"
+            app:layout_constraintTop_toBottomOf="@id/model" />
+
+        <TextView
+            android:id="@+id/cost"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@string/info"
             android:textColor="#80FFFFFF"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/model" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

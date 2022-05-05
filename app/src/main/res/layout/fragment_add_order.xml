@@ -61,8 +61,8 @@
                 android:layout_marginTop="@dimen/dimen_16"
                 android:background="@drawable/edittext_back"
                 android:gravity="center_vertical"
-                android:paddingHorizontal="@dimen/dimen_16"
                 android:hint="@string/make"
+                android:paddingHorizontal="@dimen/dimen_16"
                 android:textColor="@color/main_color"
                 android:textSize="17sp"
                 app:layout_constraintTop_toBottomOf="@id/vin_layout" />
@@ -75,8 +75,8 @@
                 android:layout_marginTop="@dimen/dimen_16"
                 android:background="@drawable/edittext_back"
                 android:gravity="center_vertical"
-                android:paddingHorizontal="@dimen/dimen_16"
                 android:hint="@string/model"
+                android:paddingHorizontal="@dimen/dimen_16"
                 android:textColor="@color/main_color"
                 android:textSize="17sp"
                 app:layout_constraintTop_toBottomOf="@id/make" />
@@ -105,6 +105,7 @@
                 style="@style/btn_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dimen_16"
                 android:text="@string/add_task"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

@@ -35,7 +35,6 @@
                 android:layout_marginBottom="@dimen/dimen_8"
                 android:fontFamily="sans-serif-medium"
                 android:lineHeight="24sp"
-                android:text="Model: Tesla Model Y"
                 android:textColor="@color/main_color"
                 android:textSize="18sp"
                 tools:targetApi="p" />
@@ -47,7 +46,6 @@
                 android:layout_marginBottom="@dimen/dimen_8"
                 android:fontFamily="sans-serif-medium"
                 android:lineHeight="24sp"
-                android:text="Brand: Tesla"
                 android:textColor="@color/main_color"
                 android:textSize="18sp"
                 tools:targetApi="p" />
@@ -59,7 +57,6 @@
                 android:layout_marginBottom="@dimen/dimen_8"
                 android:fontFamily="sans-serif-medium"
                 android:lineHeight="24sp"
-                android:text="Serial number: SJ7ASJSD787SADF7"
                 android:textColor="@color/main_color"
                 android:textSize="18sp"
                 tools:targetApi="p" />
@@ -71,7 +68,6 @@
                 android:layout_marginBottom="@dimen/dimen_8"
                 android:fontFamily="sans-serif-medium"
                 android:lineHeight="24sp"
-                android:text="VIN: 5SHD678SA"
                 android:textColor="@color/main_color"
                 android:textSize="18sp"
                 tools:targetApi="p" />
@@ -83,7 +79,6 @@
                 android:layout_marginBottom="@dimen/dimen_8"
                 android:fontFamily="sans-serif-medium"
                 android:lineHeight="24sp"
-                android:text="Date: 04.05.2022"
                 android:textColor="@color/main_color"
                 android:textSize="18sp"
                 tools:targetApi="p" />
@@ -95,7 +90,6 @@
                 android:layout_marginBottom="@dimen/dimen_8"
                 android:fontFamily="sans-serif-medium"
                 android:lineHeight="32sp"
-                android:text="Task: $300 - Change oil"
                 android:textColor="@color/main_color"
                 android:textSize="18sp"
                 tools:targetApi="p" />

@@ -15,8 +15,10 @@ import androidx.viewbinding.ViewBinding
 import com.dsrcorporation.carrepairservice.App
 import com.dsrcorporation.carrepairservice.R
 import com.dsrcorporation.carrepairservice.databinding.FragmentOrdersBinding
+import com.dsrcorporation.carrepairservice.utils.localization.LocaleHelper
 import com.dsrcorporation.carrepairservice.utils.network.Resource
 import com.dsrcorporation.carrepairservice.utils.showToast
+import com.dsrcorporation.carrepairservice.utils.storage.MyLocalStorage
 import com.dsrcorporation.carrepairservice.utils.vm.BindingFragment
 import com.dsrcorporation.domain.models.order.Order
 import kotlinx.coroutines.flow.collect
@@ -37,10 +39,10 @@ class OrdersFragment : BindingFragment<FragmentOrdersBinding>() {
                     isClosed = null
                 }
                 1 -> {
-                    isClosed = true
+                    isClosed = false
                 }
                 2 -> {
-                    isClosed = false
+                    isClosed = true
                 }
             }
         }
@@ -100,6 +102,16 @@ class OrdersFragment : BindingFragment<FragmentOrdersBinding>() {
             }
             R.id.date_desc -> {
                 dateDesc = true
+            }
+            R.id.english -> {
+                LocaleHelper().setLocale(requireContext(), "")
+                MyLocalStorage.language = ""
+                requireActivity().recreate()
+            }
+            R.id.russian -> {
+                LocaleHelper().setLocale(requireContext(), "ru")
+                MyLocalStorage.language = "ru"
+                requireActivity().recreate()
             }
         }
         lifecycleScope.launch {

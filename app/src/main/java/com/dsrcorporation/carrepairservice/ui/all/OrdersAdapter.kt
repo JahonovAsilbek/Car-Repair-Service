@@ -19,10 +19,13 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.VH>(), ItemTouchHelperA
         fun onBind(order: Order, position: Int) {
             itemOrderBinding.model.text = order.model
             var info = ""
+            var cost = 0
             for (task in order.tasks) {
                 info += task.task + ". \t"
+                cost += task.cost
             }
             itemOrderBinding.info.text = info
+            itemOrderBinding.cost.text = "$$cost"
             itemOrderBinding.date.text = SimpleDateFormat("dd.MM.yyyy").format(Date(order.date))
 
             itemOrderBinding.root.setOnClickListener {

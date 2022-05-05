@@ -14,7 +14,7 @@
         android:foreground="?selectableItemBackgroundBorderless"
         android:gravity="center"
         android:padding="@dimen/dimen_16"
-        android:text="BMW"
+        android:paddingHorizontal="50dp"
         android:textColor="@color/black"
         android:textSize="16sp" />
 

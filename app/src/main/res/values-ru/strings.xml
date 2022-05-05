@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="all">Все</string>
+    <string name="open">Неполный</string>
+    <string name="closed">Завершенный</string>
+    <string name="add_order">Добавить заказ</string>
+    <string name="hint_vint">VIN</string>
+    <string name="check">Проверять</string>
+    <string name="hint_make">Бренд</string>
+    <string name="hint_model">Модель</string>
+    <string name="hint_serial_number">Серийный номер</string>
+    <string name="add_task">Добавить задачу</string>
+    <string name="hint_task">Задача</string>
+    <string name="hint_cost">Расходы</string>
+    <string name="fill_all_fields">Заполните все поля!</string>
+    <string name="vehicle_not_found">Автомобиль не найден!</string>
+    <string name="choose">Выберите один из них</string>
+    <string name="choose_make">Сначала выберите марку</string>
+    <string name="info_title">Информация</string>
+    <string name="task">Задача:</string>
+    <string name="language">Язык</string>
+    <string name="name_a_z">Имя(А-Я)</string>
+    <string name="name_z_a">Имя (Я-А)</string>
+    <string name="date">Дата</string>
+    <string name="date_desc">Дата по убыванию</string>
+    <string name="model">Модель:</string>
+    <string name="make">Бренд:</string>
+    <string name="serial_number">Серийный номер:</string>
+    <string name="vin">VIN:</string>
+    <string name="english">English</string>
+    <string name="russian">Русский</string>
+    <string name="sort">Сортировать</string>
+</resources>
