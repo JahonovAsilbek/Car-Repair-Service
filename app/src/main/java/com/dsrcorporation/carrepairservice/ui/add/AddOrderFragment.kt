@@ -204,6 +204,7 @@ class AddOrderFragment : BindingFragment<FragmentAddOrderBinding>() {
 
     private fun addOrder() {
         val tasks = ArrayList<Task>()
+        var allFieldsFull = true
         val taskContainer: LinearLayout = binding.taskContainer
         for (i in 0 until taskContainer.childCount) {
             val task: LinearLayout = taskContainer.getChildAt(i) as LinearLayout
@@ -216,6 +217,7 @@ class AddOrderFragment : BindingFragment<FragmentAddOrderBinding>() {
                 tasks.add(Task(taskName.text(), cost.text().toInt()))
             } else {
                 requireContext().showToast(getString(R.string.fill_all_fields))
+                allFieldsFull = false
                 break
             }
         }
@@ -225,7 +227,7 @@ class AddOrderFragment : BindingFragment<FragmentAddOrderBinding>() {
         val model = binding.model.text()
         val serialNumber = binding.serialNumber.text()
 
-        if (vin.isNotEmpty() && brand.isNotEmpty() && model.isNotEmpty() && serialNumber.isNotEmpty()) {
+        if (vin.isNotEmpty() && brand.isNotEmpty() && model.isNotEmpty() && serialNumber.isNotEmpty() && tasks.isNotEmpty() && allFieldsFull) {
             val order = Order(model = model, make = brand, serialNumber = serialNumber, tasks = tasks, isClosed = false, date = System.currentTimeMillis(), vin = vin)
             viewModel.addOrder(order)
             findNavController().popBackStack()

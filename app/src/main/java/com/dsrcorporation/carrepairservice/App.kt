@@ -4,8 +4,8 @@ import android.app.Application
 import com.dsrcorporation.carrepairservice.di.AppComponent
 import com.dsrcorporation.carrepairservice.di.DaggerAppComponent
 import com.dsrcorporation.carrepairservice.di.module.ApplicationModule
-import com.dsrcorporation.carrepairservice.utils.localization.LocaleHelper
 import com.dsrcorporation.carrepairservice.utils.storage.MyLocalStorage
+import com.yariksoffice.lingver.Lingver
 import javax.inject.Inject
 
 class App @Inject constructor() : Application() {
@@ -17,7 +17,7 @@ class App @Inject constructor() : Application() {
     override fun onCreate() {
         super.onCreate()
         MyLocalStorage.init(this)
-        LocaleHelper().onAttach(this, MyLocalStorage.language!!)
+        Lingver.init(this, MyLocalStorage.language!!)
 
         appComponent = DaggerAppComponent.factory().create(this, ApplicationModule(this))
 

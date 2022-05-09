@@ -15,13 +15,12 @@ import androidx.viewbinding.ViewBinding
 import com.dsrcorporation.carrepairservice.App
 import com.dsrcorporation.carrepairservice.R
 import com.dsrcorporation.carrepairservice.databinding.FragmentOrdersBinding
-import com.dsrcorporation.carrepairservice.utils.localization.LocaleHelper
 import com.dsrcorporation.carrepairservice.utils.network.Resource
 import com.dsrcorporation.carrepairservice.utils.showToast
 import com.dsrcorporation.carrepairservice.utils.storage.MyLocalStorage
 import com.dsrcorporation.carrepairservice.utils.vm.BindingFragment
 import com.dsrcorporation.domain.models.order.Order
-import kotlinx.coroutines.flow.collect
+import com.yariksoffice.lingver.Lingver
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -88,9 +87,6 @@ class OrdersFragment : BindingFragment<FragmentOrdersBinding>() {
         var date = false
         var dateDesc = false
         when (item.itemId) {
-            R.id.language -> {
-
-            }
             R.id.name -> {
                 name = true
             }
@@ -104,14 +100,14 @@ class OrdersFragment : BindingFragment<FragmentOrdersBinding>() {
                 dateDesc = true
             }
             R.id.english -> {
-                LocaleHelper().setLocale(requireContext(), "")
+                Lingver.getInstance().setLocale(requireContext(), "")
                 MyLocalStorage.language = ""
-                requireActivity().recreate()
+                reOpenApp()
             }
             R.id.russian -> {
-                LocaleHelper().setLocale(requireContext(), "ru")
+                Lingver.getInstance().setLocale(requireContext(), "ru")
                 MyLocalStorage.language = "ru"
-                requireActivity().recreate()
+                reOpenApp()
             }
         }
         lifecycleScope.launch {
@@ -131,6 +127,12 @@ class OrdersFragment : BindingFragment<FragmentOrdersBinding>() {
             }
         }
         return true
+    }
+
+    private fun reOpenApp() {
+        val intent = requireActivity().intent
+        requireActivity().finish()
+        startActivity(intent)
     }
 
     private fun setupUI() {
